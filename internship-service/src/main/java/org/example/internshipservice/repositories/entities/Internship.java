@@ -31,12 +31,23 @@ public class Internship {
     private String type;
     @ElementCollection
     private List<Long> internsIds;
-//    private Topic topic;
+    @OneToOne
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
+
+
 //    private Supervisor supervisor;
 
 
     public String getTitle() {
         return title;
+    }
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 
     public void setTitle(String title) {
@@ -92,12 +103,14 @@ public class Internship {
     }
     public InternshipResponse toResponse() {
         return new InternshipResponse(
+                this.id,
                 this.title,
                 this.description,
                 this.startDate,
                 this.endDate,
                 this.type,
-                this.internsIds
+                this.internsIds,
+                this.topic.toResponse()
         );
     }
 }

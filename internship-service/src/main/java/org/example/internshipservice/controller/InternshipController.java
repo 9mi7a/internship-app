@@ -23,6 +23,7 @@ public class InternshipController {
     @Autowired private DeleteInternshipByIdService deleteInternshipByIdService;
     @Autowired private AddInternToInternshipService addInternToInternshipService;
     @Autowired private GetInternsIdsByInternshipIdService getInternsIdsByInternshipIdService;
+    @Autowired private AddTopicToInternshipService addTopicToInternshipService;
     @PostMapping
     public InternshipResponse create(@RequestBody CreateInternshipRequest request) {
         return createInternshipService.create(request);
@@ -55,5 +56,9 @@ public class InternshipController {
     @GetMapping("/{id}/interns")
     public List<Long> getInternsIds(@PathVariable Long id, Pageable pageable) {
         return getInternsIdsByInternshipIdService.getInternsIdsByInternshipId(id);
+    }
+    @PostMapping("/{id}/add-topic")
+    public InternshipResponse addTopic(@PathVariable Long id, @RequestBody Long topicId) {
+       return addTopicToInternshipService.addTopicToInternship(id, topicId);
     }
 }
